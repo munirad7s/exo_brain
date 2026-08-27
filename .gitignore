@@ -1,0 +1,24 @@
+# Obsidian: UI state changes on every click and creates commit noise.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+
+# Obsidian plugin binaries are reinstallable — only settings (data.json) and the
+# plugin list (community-plugins.json) travel through git.
+.obsidian/plugins/**
+!.obsidian/plugins/*/
+!.obsidian/plugins/*/data.json
+
+# Plugin data that can embed extracted local document text.
+.smart-env/
+.trash/
+
+# Disposable local layer — rebuildable at any time, never synced.
+.brain/
+
+# OS noise.
+*.lnk
+Thumbs.db
+.DS_Store
+desktop.ini
+~$*

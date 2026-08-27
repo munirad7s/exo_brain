@@ -1,0 +1,44 @@
+#!/bin/sh
+# exo_brain pre-commit — protection layer 3 of 3 (policy · tooling convention · THIS hook)
+# Versioned in "99 System/policy/hooks/", installed into .git/hooks/pre-commit.
+# Canon: 99 System/policy/brain-policy.yaml
+
+staged=$(git diff --cached --name-only)
+
+# 1) Owner journal: humans only.
+#    Detection is two-stage ("git identity is not enough — path + markers are the invariant"):
+#    a) An agent that identifies itself (BRAIN_ACTOR=agent) is hard-blocked by path.
+#    b) Otherwise (owner commits from Obsidian/terminal without the env var): blocked only
+#       when the staged owner-journal content carries agent markers — the owner's own
+#       diary commits always pass.
+owner_staged=$(echo "$staged" | grep "^01 Journal/owner/" || true)
+if [ -n "$owner_staged" ]; then
+  if [ "${BRAIN_ACTOR:-}" = "agent" ]; then
+    echo "BLOCKED: 01 Journal/owner/** is the owner's space (BRAIN_ACTOR=agent)." >&2
+    exit 1
+  fi
+  echo "$owner_staged" | while IFS= read -r f; do
+    if git show ":$f" 2>/dev/null | grep -qE "^(type: agent-session|agent:|host:)"; then
+      echo "BLOCKED: agent markers in the owner journal ($f) — agents write to 01 Journal/agents/." >&2
+      exit 1
+    fi
+  done || exit 1
+fi
+
+# 2) Now.md line cap — keeps the "current focus" note loadable as default context.
+if echo "$staged" | grep -q "^99 System/Now.md$"; then
+  lines=$(git show ":99 System/Now.md" | wc -l)
+  if [ "$lines" -gt 120 ]; then
+    echo "BLOCKED: Now.md has $lines lines (cap 120). Move displaced content to an archive note." >&2
+    exit 1
+  fi
+fi
+
+# 3) Optional vault health check, when a doctor tool is installed (hard fails block).
+if command -v brainctl >/dev/null 2>&1; then
+  if ! brainctl doctor >/dev/null 2>&1; then
+    echo "BLOCKED: brainctl doctor reports hard fails — run 'brainctl doctor' for details." >&2
+    exit 1
+  fi
+fi
+exit 0

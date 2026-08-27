@@ -1,0 +1,36 @@
+# Required-field schemas per note type.
+# Enforcement: via a doctor tool + pre-commit (optional). A reference to a field
+# never counts as its definition.
+
+idea:       [id, type, title, status, created, owner, last_verified, evidence_level, next_test, next_action, tags]
+idea_status: [exploring, validating, validated, promoted, parked, killed]
+idea_optional: [promoted_to]
+
+research:   [id, type, idea_id, question, status, conclusion, confidence, source_ids, last_verified]
+source:     [id, type, idea_id, source_kind, author, url, published_at, retrieved_at, trust, content_hash]
+
+knowledge_atom: [id, type, status, claim, applies_to, confidence, source_ids, created, last_verified]
+knowledge_atom_status: [draft, stable, superseded]
+knowledge_atom_optional: [superseded_by]
+knowledge_guide_dossier_extra: [scope, maintainer]
+
+area:       [id, type, status, owner, purpose, health, review_cadence, last_verified, next_action]
+area_status: [active, paused, retired]
+
+client:     [id, type, stage, owner, last_contact, next_action, commercial_status, linked_projects]
+client_stage: [lead, qualified, proposal, onboarding, active, retained, lost, closed]
+
+goal:       [id, type, status, owner, horizon, metric, baseline, target, current, target_date, next_review, next_action, linked_projects]
+goal_status: [draft, active, achieved, abandoned, superseded]
+
+repository: [id, type, repo_full_name, remote_url, status, owner, linked_project, default_branch, local_paths, deployments, last_synced_at, last_pushed_at, last_verified, next_action]
+repository_status: [discovered, active, maintenance, frozen, archived, missing]
+
+project:    [id, type, status, outcome, next_action, last_verified]
+project_optional: [origin_idea, linked_goal, linked_area, linked_repos]
+
+decision:   [id, type, question, decision, status, decided_at, decided_by, why, alternatives, evidence_ids]
+decision_optional: [revisit_when, supersedes, superseded_by]
+
+journal_agent_session: [id, type, host, agent, date]
+journal_owner: [visibility]   # private (default) | brain — otherwise free-form, the owner's space
