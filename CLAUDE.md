@@ -1,9 +1,6 @@
 # Vault Operating Manual (Claude Code adapter)
 
-> **READ THIS FILE FIRST — before doing ANYTHING in this vault.**
-> 1. Read this CLAUDE.md fully and follow it — it overrides default behavior.
-> 2. Load vault context per **Context Loading Priority** (bottom).
-> 3. Then act. Saving durable knowledge back here is the default, not an extra step.
+> Before acting, load vault context per **Context Loading Priority** (bottom). Saving durable knowledge back here is the default, not an extra step.
 >
 > Rule source: `99 System/policy/brain-policy.yaml`. This file is a rendered adapter. <!-- BRAIN:ADAPTER v1 -->
 
@@ -67,7 +64,7 @@ When you make a **decision that matters** — architecture, strategy, tech/tool 
 
 **Never trigger on:** formatting, obvious default paths, anything reversible in 30 seconds, or pure execution of an already-made decision.
 
-### Session Log — ⚠️ CRITICAL, never skip
+### Session Log (every substantive session, never skip)
 
 The journal is the shared memory across all agents — a session without a log entry is invisible to future sessions. Logging is part of the task itself, not optional cleanup. At the end of any substantive session, write YOUR session file (one writer per file — never append to another agent's file, never touch `01 Journal/owner/**`). Include, in 3–8 bullets:
 - What was worked on (project name, files touched, key decisions)

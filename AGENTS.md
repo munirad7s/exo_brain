@@ -26,7 +26,7 @@ That includes every CLI agent, IDE agent, local model, and remote runner you con
 ### The four duties — identical for all
 
 1. **Read before working.** For non-trivial tasks: this file, plus `99 System/Now.md` and the one relevant project/client/idea note if the task is scoped. Do not load half the vault.
-2. **Write after working.** Session file in `01 Journal/agents/YYYY-MM/YYYY-MM-DD__<host>__<agent>__<session-id>.md`, 3–8 bullets: what was worked on, what was achieved, what is open. **Never skip** — not even under time pressure. NEVER write into `01 Journal/owner/**`.
+2. **Write after working.** Session file in `01 Journal/agents/YYYY-MM/YYYY-MM-DD__<host>__<agent>__<session-id>.md`, 3–8 bullets: what was worked on, what was achieved, what is open. Never skip it, not even under time pressure. Never write into `01 Journal/owner/**` (see *Journal ownership*).
 3. **Save durable knowledge immediately**, into the right folder (see *Save Durable Knowledge* below). Update the existing note instead of creating a duplicate. Don't ask — this is pre-approved.
 4. **Update the canonical note**, not just the journal (see *Canonical Status Gate*).
 
